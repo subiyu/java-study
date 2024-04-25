@@ -26,7 +26,7 @@ public class Point implements Drawable {
 		this.y = y;
 	}
 	
-	public void show() {
+	/* public void show() {
 		System.out.println("점 (" + x + ", " + y + ") 을 그렸습니다.");
 	}
 	
@@ -37,11 +37,20 @@ public class Point implements Drawable {
 		else {
 			System.out.println("점 (" + x + ", " + y + ") 을 지웠습니다.");
 		}
-	}
+	} */
 	
 	@Override
 	public void draw() {
-		
+		System.out.println("점 (" + x + ", " + y + ") 을 그렸습니다.");
+	}
+
+	public void draw(boolean visible) {
+		if(visible) {
+			draw();
+		}
+		else {
+			System.out.println("점 (" + x + ", " + y + ") 을 지웠습니다.");
+		}
 	}
 	
 	/* public void disappear() {
