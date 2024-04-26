@@ -18,18 +18,19 @@ public class ExceptionTest {
 			
 		} catch(ArithmeticException ex) {
 			/* 예외 처리 */
-			//ex.printStackTrace(); //예외 처리 어떻게 하는 ㅣ지 모를 때
+			//ex.printStackTrace(); //예외 처리 어떻게 하는 지 모를 때
+			
 			// 로깅
 			System.out.println("erorr: " + ex);
 			
 			// 2. 사과
+			System.out.println("미안합니다....");
 			
 			// 3. 정상종료
 			//System.exit(0)
 			return;
 		} finally {
-			
-			System.out.println("자원 정리: ex) closeFoile, socket, ");
+			System.out.println("자원 정리: ex) close file, socket, db connection.");
 		}
 		
 		System.out.println(" Some Code 6 ...");

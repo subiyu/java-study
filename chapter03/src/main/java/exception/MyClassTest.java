@@ -9,6 +9,8 @@ public class MyClassTest {
 		} catch (IOException e) {
 			System.out.println("error: " + e);
 			e.printStackTrace();
+		} catch (MyException e) {
+			System.out.println("error: " + e);
 		}
 	}
 }

@@ -20,7 +20,7 @@ public class Point {
 	public String toString() {
 		return "Point [x=" + x + ", y=" + y + "]";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(x, y);
