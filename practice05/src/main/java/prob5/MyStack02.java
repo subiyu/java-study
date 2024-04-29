@@ -1,22 +1,15 @@
 package prob5;
-import prob5.MyStackException;
 
-/*
- * String[] buffer
- * buffer = new String[3]
- * top는 0이나 -1이나 맘대로 구현해
- * 꽉 찼으면 늘려야해(resize() 구현: temp = new String[size*2] -> 기존꺼 복사시켜
- */
-public class MyStack {
-	private String[] buffer;
+public class MyStack02 {
+	private Object[] buffer;
 	private int fullIdx;
 	
-	public MyStack(int i) {
+	public MyStack02(int i) {
 		buffer = new String[i];
 		fullIdx = 0;
 	}
 
-	public void push(String s) {
+	public void push(Object s) {
 		if(fullIdx >= buffer.length) {
 			resize();
 		}
@@ -24,11 +17,11 @@ public class MyStack {
 		fullIdx ++;
 	}
 	
-	public String pop() throws MyStackException {
+	public Object pop() throws MyStackException {
 		if(isEmpty()) {
 			throw new MyStackException("stack is empty");
 		}
-		String top = buffer[fullIdx-1];
+		Object top = buffer[fullIdx-1];
 		buffer[fullIdx-1] = null;
 		fullIdx --;
 		return top;
@@ -39,7 +32,7 @@ public class MyStack {
 	}
 	
 	public void resize() {
-		String[] tmp = new String[size() * 2];
+		Object[] tmp = new String[size() * 2];
 		for(int i=0; i<buffer.length; i++) {
 			tmp[i] = buffer[i];
 		}

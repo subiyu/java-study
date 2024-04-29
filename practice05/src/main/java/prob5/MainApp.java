@@ -12,7 +12,7 @@ public class MainApp {
 			stack.push(".");
 
 			while (stack.isEmpty() == false) {
-				String s = stack.pop();
+				String s = stack.pop(); //다운 캐스팅
 				System.out.println( s );
 			}
 
@@ -26,7 +26,6 @@ public class MainApp {
 			
 		} catch ( MyStackException ex) {
 			System.out.print( ex );
-			System.out.println(": stack is empty");
 		}
 
 	}
