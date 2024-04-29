@@ -21,7 +21,7 @@ public class CalendarTest {
 		printDate(cal);
 		
 		cal.set(2000, 5, 6);
-		cal.add(Calendar.DATE, 8800);
+		cal.add(Calendar.DATE, 8800); //cal 기준으로 +8800일 되는 날짜가 언제인지 확인
 		printDate(cal);
 	}
 
