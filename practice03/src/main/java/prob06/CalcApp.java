@@ -33,7 +33,7 @@ public class CalcApp {
 					arithmetic = new Add();
 					if(arithmetic != null) {	
 						arithmetic.setValue( lValue, rValue );
-						int result = arithmetic.calculate();
+						Number result = arithmetic.calculate();
 						System.out.println( ">> " + result );
 						
 						break;
@@ -43,7 +43,7 @@ public class CalcApp {
 					arithmetic = new Sub();
 					if(arithmetic != null) {						
 						arithmetic.setValue( lValue, rValue );
-						int result = arithmetic.calculate();
+						Number result = arithmetic.calculate();
 						System.out.println( ">> " + result );
 						
 						break;
@@ -53,7 +53,7 @@ public class CalcApp {
 					arithmetic = new Mul();
 					if(arithmetic != null) {						
 						arithmetic.setValue( lValue, rValue );
-						int result = arithmetic.calculate();
+						Number result = arithmetic.calculate();
 						System.out.println( ">> " + result );
 						
 						break;					
@@ -63,7 +63,7 @@ public class CalcApp {
 					arithmetic = new Div();
 					if(arithmetic != null) {						
 						arithmetic.setValue( lValue, rValue );
-						int result = arithmetic.calculate();
+						Number result = arithmetic.calculate();
 						System.out.println( ">> " + result );
 						
 						break;
