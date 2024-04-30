@@ -28,6 +28,10 @@ public class FileCopy {
 				if(is != null) {
 					is.close();					
 				}
+				
+				if(os != null) {
+					os.close();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}				
