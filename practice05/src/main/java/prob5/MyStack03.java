@@ -1,5 +1,7 @@
 package prob5;
 
+/** 제너릭 클래스 
+ * @param <T> **/
 public class MyStack03<T> {
 	private T[] buffer;
 	private int fullIdx;

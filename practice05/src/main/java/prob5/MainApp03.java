@@ -11,7 +11,7 @@ public class MainApp03 {
 			stack.push(".");
 
 			while (stack.isEmpty() == false) {
-				String s = stack.pop();
+				Object s = stack.pop();
 				System.out.println( s );
 			}
 

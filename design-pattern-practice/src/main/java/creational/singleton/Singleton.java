@@ -6,7 +6,8 @@ public class Singleton {
 	private Singleton() {	
 	}
 	
-	public static Singleton getInstance() {
+	// synchronzied로 동시성 문제 해결
+	public static synchronized Singleton getInstance() {
 		if(instance == null) {
 			instance = new Singleton();
 		}
