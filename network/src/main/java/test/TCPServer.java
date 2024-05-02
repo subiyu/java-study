@@ -28,7 +28,7 @@ public class TCPServer {
 			/* data socket */
 			try {				
 				InetSocketAddress inetRemoteSocketAddress = (InetSocketAddress)socket.getRemoteSocketAddress();
-				String remoteHostAddress = inetRemoteSocketAddress.getAddress().getHostAddress();
+				String remoteHostAddress = inetRemoteSocketAddress.getAddress().getHostAddress(); //inetRemoteSocketAddress.getAddress()는 InetSocketAddress 객체를 반환
 				int remotePort = inetRemoteSocketAddress.getPort();
 				System.out.println("[server] connected by client[" + remoteHostAddress + ":" + remotePort + "]");
 				
@@ -40,23 +40,24 @@ public class TCPServer {
 				while(true) {
 					// 5. 데이터 읽기
 					byte[] buffer = new byte[256];
-					int readByteCount = is.read(buffer); //blocking					
-					
+					int readByteCount = is.read(buffer); //blocking		
+														 //read()함수는 주어진 버퍼에 최대 256바이트의 데이터를 읽고 실제로 읽은 바이트 수를 반환한다.
 					if(readByteCount == -1) {
 						//클라이언트가 정상적으로 종료(close() 호출)
 						System.out.println("[server] closed by client");
 						break;
 					}
 					
-					String data = new String(buffer, 0, readByteCount, "UTF-8");
+					String data = new String(buffer, 0, readByteCount, "utf-8");
 					System.out.println("[server] received: " + data);
 
 					// 6. 데이터 쓰기
+					//os.write(buffer);
 					os.write(data.getBytes("utf-8"));
 				}
 				
 			} catch (SocketException e) {
-				System.out.println("[server] suddenly closed by client");
+				System.out.println("[server] Socket Exception"); //상대방 연결 끊어짐(보통 read 할 때 발생)
 			} catch (IOException e) {
 				System.out.println("[server] error: " + e);
 			} finally {

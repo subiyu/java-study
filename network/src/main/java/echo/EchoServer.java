@@ -38,9 +38,6 @@ public class EchoServer {
 				
 				//System.out.println("연결!!!");
 				//4. IO Stream 받아오기
-				InputStream is = socket.getInputStream();
-				OutputStream os = socket.getOutputStream();
-				
 				PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true); //
 				BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
 				
@@ -57,7 +54,7 @@ public class EchoServer {
 				}
 				
 			} catch (SocketException e) {
-				log("[server] suddenly closed by client");
+				log("[server] Socket Exception");
 			} catch (IOException e) {
 				log("[server] error: " + e);
 			} finally {

@@ -13,7 +13,6 @@ public class TCPClient {
 	public static void main(String[] args) {
 		Socket socket = null;
 		
-		
 		try {
 			// 1. socket 생성
 			socket = new Socket();
@@ -40,7 +39,7 @@ public class TCPClient {
 			data = new String(buffer, 0, readByteCount, "utf-8");
 			System.out.println("[client] received:" + data);
 		} catch (SocketException e) {
-			System.out.println("[cleint] suddenly closed by server");
+			System.out.println("[cleint] Socket Exception");
 		} catch (IOException e) {
 			System.out.println("[client] error:" + e);
 		} finally {
