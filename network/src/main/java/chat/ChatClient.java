@@ -36,12 +36,12 @@ public class ChatClient {
 			System.out.print("닉네임>>");
 			String nickname = scanner.nextLine();
 			pw.println("join:" + nickname);
-			pw.flush();
+			//pw.flush();
 			System.out.println("입장하였습니다. 즐거운 채팅 되세요");
+			//System.out.println("률류" + ChatServer.listWriters.size());
 			
 			//6. ChatClientReceiveThread 시작
-			Thread clientThread = new ChatClientThread();
-			clientThread.start();
+			new ChatClientThread(socket).start();
 			
 			//7. 키보드 입력 처리
 			while(true) {

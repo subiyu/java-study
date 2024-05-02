@@ -98,8 +98,14 @@ public class ChatServerThread extends Thread {
 	
 	/* 서버에 연결된 모든 클라이언트에 메시지를 보내는(브로드캐스트)메소드 */
 	private void broadcast(String data) {
+		//String data2 = "hello";
+		//System.out.println("writers: " + listWriters.size());
+	
 		// 스레드간 공유 객체인 listWriters 에 접근하기 때문에 동기화 처리 필요
 		synchronized(listWriters) {
+//			Writer w1 = listWriters.get(0);
+//			PrintWriter ww1 = (PrintWriter)w1;
+//			ww1.println("homehome2");
 			for(Writer writer : listWriters) {
 				PrintWriter printWriter = (PrintWriter)writer; //PrintWriter의 메서드를 사용해야하기 때문에 명시적으로 다운 캐스팅
 				printWriter.println(data);

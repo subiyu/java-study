@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class ChatServer {
 	public static final int PORT = 8095;
-	public static final List<Writer> listWriters = new ArrayList<Writer>();
+	public static List<Writer> listWriters = new ArrayList<Writer>();
 
 	public static void main(String[] args) {
 		ServerSocket serverSocket = null;
