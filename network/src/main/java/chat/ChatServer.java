@@ -6,16 +6,18 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ChatServer {
 	public static final int PORT = 8095;
-	public static List<Writer> listWriters = new ArrayList<Writer>();
+	public static List<Writer> listWriters;
 
 	public static void main(String[] args) {
 		ServerSocket serverSocket = null;
+		listWriters = new ArrayList<Writer>();
 		try {			
 			//1. 서버 소켓 생성
 			serverSocket = new ServerSocket();

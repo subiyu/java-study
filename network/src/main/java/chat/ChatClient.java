@@ -48,12 +48,11 @@ public class ChatClient {
 				String input = scanner.nextLine();
 				if("quit".equals(input)) {
 					//8. quit 프로토콜 처리
-					pw.println("quit:");
-					pw.flush();
+					pw.println("quit:" + "aa");
+					//pw.flush();
 					break;
 				} else {
 					//9. 메시지 처리
-					System.out.println(nickname + ":" + input);
 					pw.println("message:" + input);
 					/* String data = br.readLine(); //blocking
 					if(data == null) {

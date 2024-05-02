@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -28,6 +29,12 @@ public class ChatServerThread extends Thread {
 	
 	@Override
 	public void run() {
+		/* Remote Host Information */
+		InetSocketAddress inetRemoteSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
+		String remoteHostAddress = inetRemoteSocketAddress.getAddress().getHostAddress();
+		int remoteHostPort = inetRemoteSocketAddress.getPort();
+		ChatServer.log("connected by client[" + remoteHostAddress + ":" + remoteHostPort + "]");
+		
 		try {
 			/* 스트림 얻기 */
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
@@ -44,18 +51,18 @@ public class ChatServerThread extends Thread {
 				/* 프로토콜 분석 */
 				String[] tokens = request.split(":"); //token[0]: nickname
 													  //token[1]: message
-				String cmd = tokens[0]; String content = tokens[1];
-	
-				if("join".equals(cmd)) {
-					doJoin(content, pw); //다른 스레드의 IO Stream을 사용해야하므로, printWirter 객체를 전달
+		
+				if("join".equals(tokens[0])) {
+					doJoin(tokens[1], pw); //다른 스레드의 IO Stream을 사용해야하므로, printWirter 객체를 전달
 				}
-				else if("message".equals(cmd)) {
-					doMessage(content);
+				else if("message".equals(tokens[0])) {
+					doMessage(tokens[1]);
 				}
-				else if("quit".equals(cmd)) {
+				else if("quit".equals(tokens[0])) {
+					//System.out.println(tokens[0]);
 					doQuit(pw);
 				} else {
-					log("에러:알 수 없는 요청(" + cmd + ")");
+					log("에러:알 수 없는 요청(" + tokens[0] + ")");
 				}
 			}
 		
@@ -87,7 +94,7 @@ public class ChatServerThread extends Thread {
 		PrintWriter printWriter = (PrintWriter)writer;
 		
 		// ACK 전송(ack를 보내 방 참여가 성공했다는 것을 클라이언트에게 알려주기)
-		printWriter.println("join:ok");
+		//printWriter.println("join:ok");
 	}
 	
 	private void addWriter(Writer writer) {
@@ -109,14 +116,14 @@ public class ChatServerThread extends Thread {
 			for(Writer writer : listWriters) {
 				PrintWriter printWriter = (PrintWriter)writer; //PrintWriter의 메서드를 사용해야하기 때문에 명시적으로 다운 캐스팅
 				printWriter.println(data);
-				System.out.println(data); //xx님이 참여하였습니다.
+				//System.out.println(data); //xx님이 참여하였습니다.
 				printWriter.flush();
 			}
 		}
 	}
 
 	private void doMessage(String msg) {
-		broadcast(msg);
+		broadcast(nickname + ":" + msg);
 	}
 
 	private void doQuit(Writer writer) {
