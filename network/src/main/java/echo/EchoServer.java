@@ -25,7 +25,8 @@ public class EchoServer {
 			// 2. 바인딩(binding)
 			// 	  Socket에 InetSocketAddress[InetAddressIpAddress + Port)]를 바인딩한다.
 			//	  IPAddress: 0.0.0.0: 특정 호스트 IP(=특정 네트워크 대역)를 바인딩 하지 않는다.
-			serverSocket.bind(new InetSocketAddress("0.0.0.0", PORT), 10); //포트만 일치하면 다 받겠다															   //10: 백로그(c1과 accept 처리중에 c2가 연결시도하면 백로그라는 queue를 size "10"으로 해놓고 대기시켜
+			serverSocket.bind(new InetSocketAddress("0.0.0.0", PORT), 10); //포트만 일치하면 다 받겠다															   
+			//10: 백로그(c1과 accept 처리중에 c2가 연결시도하면 백로그라는 queue를 size "10"으로 해놓고 대기시켜
 			
 			log("starts....[port:" + PORT + "]");
 			
