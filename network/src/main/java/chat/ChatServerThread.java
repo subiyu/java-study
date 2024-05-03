@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class ChatServerThread extends Thread {
@@ -60,10 +61,12 @@ public class ChatServerThread extends Thread {
 					doJoin(tokens[1], pw); //다른 스레드의 IO Stream을 사용해야하므로, printWirter 객체를 전달
 				}
 				else if("message".equals(tokens[0])) {
-					doMessage(tokens[1]);
+					String decodedMessage = new String(Base64.getDecoder().decode(tokens[1]));
+					doMessage(decodedMessage);
 				}
 				else if("quit".equals(tokens[0])) {
 					doQuit(pw);
+					pw.println(tokens[1]);
 				} else {
 					log("에러:알 수 없는 요청(" + tokens[0] + ")");
 				}

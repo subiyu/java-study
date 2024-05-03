@@ -7,6 +7,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Base64;
 import java.util.Scanner;
 
 import echo.EchoServer;
@@ -45,11 +46,12 @@ public class ChatClient {
 				String input = scanner.nextLine();
 				if("quit".equals(input)) {
 					//8. quit 프로토콜 처리
-					pw.println("quit:" + "bye");
+					pw.println("quit:" + "정상 종료 되었습니다. 채팅창을 나가셔도 좋습니다.");
 					break;
 				} else {
 					//9. 메시지 처리
-					pw.println("message:" + input);
+					String encodedMessage = Base64.getEncoder().encodeToString(input.getBytes());
+					pw.println("message:" + encodedMessage);
 				}
 			}
 		} catch(IOException ex) {
