@@ -36,9 +36,6 @@ public class ChatClient {
 			System.out.print("닉네임>>");
 			String nickname = scanner.nextLine();
 			pw.println("join:" + nickname);
-			//pw.flush();
-			System.out.println("입장하였습니다. 즐거운 채팅 되세요");
-			//System.out.println("률류" + ChatServer.listWriters.size());
 			
 			//6. ChatClientReceiveThread 시작
 			new ChatClientThread(socket).start();
@@ -48,17 +45,11 @@ public class ChatClient {
 				String input = scanner.nextLine();
 				if("quit".equals(input)) {
 					//8. quit 프로토콜 처리
-					pw.println("quit:" + "aa");
-					//pw.flush();
+					pw.println("quit:" + "bye");
 					break;
 				} else {
 					//9. 메시지 처리
 					pw.println("message:" + input);
-					/* String data = br.readLine(); //blocking
-					if(data == null) {
-						log("suddenly closed by server");
-						break;
-					} */
 				}
 			}
 		} catch(IOException ex) {

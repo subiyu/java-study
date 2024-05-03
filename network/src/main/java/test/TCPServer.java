@@ -58,7 +58,7 @@ public class TCPServer {
 					/* try {
 						Thread.sleep(3000); // SO_TIMEOUT 테스트
 					} catch (InterruptedException e) {
-						e.printStackTrace();
+						 e.printStackTrace();
 					} */
 					
 					os.write(data.getBytes("utf-8"));
