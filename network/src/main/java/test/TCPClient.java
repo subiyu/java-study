@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 public class TCPClient {
 	private static final String SERVER_IP = "127.0.0.1";
@@ -16,6 +17,19 @@ public class TCPClient {
 		try {
 			// 1. socket 생성
 			socket = new Socket();
+			
+			// 1-2.
+			socket.setReceiveBufferSize(1024 * 10);
+			socket.setSendBufferSize(1024 * 10);
+			socket.setSoTimeout(1000);
+			
+			// 1-1. 소켓 버퍼 사이즈 확인
+			int rcvBufferSize = socket.getReceiveBufferSize();
+			int sndBufferSize = socket.getSendBufferSize();
+			System.out.println(rcvBufferSize + ":" + sndBufferSize);
+			
+			// 1-3. SO_NODELAY(Nagle Algorithm off)
+			socket.setTcpNoDelay(true);
 			
 			// 2. 서버 연결
 			socket.connect(new InetSocketAddress(SERVER_IP, SERVER_PORT));
@@ -38,6 +52,8 @@ public class TCPClient {
 			
 			data = new String(buffer, 0, readByteCount, "utf-8");
 			System.out.println("[client] received:" + data);
+		} catch (SocketTimeoutException e) {
+			System.out.println("[cleint] timeout!!");
 		} catch (SocketException e) {
 			System.out.println("[cleint] Socket Exception");
 		} catch (IOException e) {
