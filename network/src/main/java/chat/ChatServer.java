@@ -37,7 +37,7 @@ public class ChatServer {
 		} finally {
 			// 5. 자원정리
 			try {
-				if (serverSocket != null && serverSocket.isClosed() == false) {
+				if (serverSocket != null && !serverSocket.isClosed()) {
 					serverSocket.close();
 				}
 			} catch (IOException ex) {

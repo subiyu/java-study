@@ -56,6 +56,7 @@ public class ChatServerThread extends Thread {
 				/* 프로토콜 분석 */
 				String[] tokens = request.split(":"); //token[0]: command
 													  //token[1]: message
+				//System.out.println(tokens);
 		
 				if("join".equals(tokens[0])) {
 					doJoin(tokens[1], pw); //다른 스레드의 IO Stream을 사용해야하므로, printWirter 객체를 전달
@@ -65,8 +66,9 @@ public class ChatServerThread extends Thread {
 					doMessage(decodedMessage);
 				}
 				else if("quit".equals(tokens[0])) {
+					//System.out.println("aa");
 					doQuit(pw);
-					pw.println(tokens[1]);
+					pw.println("QUIT:OK" + tokens[1]);
 				} else {
 					log("에러:알 수 없는 요청(" + tokens[0] + ")");
 				}
@@ -80,7 +82,7 @@ public class ChatServerThread extends Thread {
 		} finally {
 			//자원 정리
 			try{
-				if( socket != null && !socket.isClosed() == false ) {
+				if( socket != null && !socket.isClosed()) {
 					socket.close();
 				}
 				
@@ -92,16 +94,17 @@ public class ChatServerThread extends Thread {
 	
 	private void doJoin(String nickName, Writer writer) {
 		this.nickname = nickName; //nickname 을 thread 객체 변수로 저장
+		String message = "입장하였습니다. 즐거운 채팅 되세요";
 		
 		String data = nickName + "님이 참여하였습니다.";
 		
 		/* writer pool 에 저장(writer pool 에 현재 스레드의 writer를 저장) */
 		addWriter(writer);		
-		broadcast(data);
+		broadcast("JOIN:OK:" + data);
 		
 		// ACK 전송(ack를 보내 방 참여가 성공했다는 것을 클라이언트에게 알려주기)
 		PrintWriter printWriter = (PrintWriter)writer;
-		printWriter.println("입장하였습니다. 즐거운 채팅 되세요");
+		printWriter.println("JOIN:OK:" + message);
 	}
 	
 	private void addWriter(Writer writer) {
@@ -125,7 +128,7 @@ public class ChatServerThread extends Thread {
 	}
 
 	private void doMessage(String msg) {
-		broadcast(nickname + ":" + msg);
+		broadcast("MESSAGE:OK:" + nickname + ":" + msg);
 	}
 
 	private void doQuit(Writer writer) {
